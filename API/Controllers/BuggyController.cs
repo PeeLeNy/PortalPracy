@@ -23,7 +23,7 @@ namespace API.Controllers
         [HttpGet("server-error")]
         public ActionResult<AppUser> GetServerError()
         {
-            var thing = context.Users.Find(-1) ?? throw new Exception("Błąd servera");
+            var thing = context.Users.Find(-1) ?? throw new Exception("Błąd serwera");
             return thing;
         }
         [HttpGet("bad-request")]
