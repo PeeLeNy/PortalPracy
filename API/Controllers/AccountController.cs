@@ -14,25 +14,24 @@ namespace API.Controllers
         [HttpPost("register")] // acount register
         public async Task<ActionResult<UserDto>> Register(RegisterDto registerDto) { 
             if (await UserExist(registerDto.Email)) return BadRequest("Email jest zajęty");
+            using var hmac = new HMACSHA512();
 
-            return Ok();
-            //using var hmac = new HMACSHA512();
-            
-            //var user = new AppUser
-            //{
-            //    UserName = registerDto.UserName,
-            //    Email = registerDto.Email.ToLower(),
-            //    PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(registerDto.Password)),
-            //    PasswordSalt = hmac.Key,
-            //    StudentStatus = registerDto.StudentStatus
-            //};
-            //context.Users.Add(user);
-            //await context.SaveChangesAsync();
-            //return new UserDto
-            //{
-            //    Email = user.Email,
-            //    Token = tokenService.CreateToken(user)
-            //};
+            var user = new AppUser
+            {
+                UserName = registerDto.UserName,
+                Email = registerDto.Email.ToLower(),
+                PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(registerDto.Password)),
+                PasswordSalt = hmac.Key,
+                StudentStatus = registerDto.StudentStatus,
+
+            };
+            context.Users.Add(user);
+            await context.SaveChangesAsync();
+            return new UserDto
+            {
+                Email = user.Email,
+                Token = tokenService.CreateToken(user)
+            };
         }
 
         [HttpPost("login")]

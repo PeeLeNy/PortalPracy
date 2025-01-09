@@ -1,0 +1,55 @@
+<div class="navbar-dark bg-primary text-white">
+    <h5 class="modal-title ps-3">Utwórz ofertę pracy</h5>
+</div>
+<div class="p-3">
+    <div class="modal-body">
+        <form [formGroup]="jobOfferForm" (ngSubmit)="onSubmit()">
+          <!-- Tytuł -->
+          <div class="mb-3">
+            <label for="title" class="form-label">Tytuł</label>
+            <input id="title" type="text" class="form-control" formControlName="title" placeholder="Wpisz tytuł oferty pracy" />
+            <div class="text-danger" *ngIf="jobOfferForm.get('title')?.invalid && jobOfferForm.get('title')?.touched">
+              <small *ngIf="jobOfferForm.get('title')?.errors?.['required']">Tytuł jest wymagany.</small>
+              <small *ngIf="jobOfferForm.get('title')?.errors?.['maxLength']">Tytuł nie może przekraczać 100 znaków.</small>
+            </div>
+          </div>
+      
+          <!-- Opis -->
+          <div class="mb-3">
+            <label for="description" class="form-label">Opis</label>
+            <textarea id="description" class="form-control" formControlName="description" placeholder="Wpisz opis oferty pracy" style="height: 300px;"></textarea>
+            <div class="text-danger" *ngIf="jobOfferForm.get('description')?.invalid && jobOfferForm.get('description')?.touched">
+              <small *ngIf="jobOfferForm.get('description')?.errors?.['required']">Opis jest wymagany.</small>
+              <small *ngIf="jobOfferForm.get('description')?.errors?.['minLength']">Opis musi mieć co najmniej 10 znaków.</small>
+            </div>
+          </div>
+          
+          <!-- Wynagrodzenie Od -->
+          <label foclass="form-label">Wynagrodzenie miesieczne</label>
+          <div class="mb-3">
+            <label for="salaryFrom" class="form-label">Od</label>
+            <input id="salaryFrom" type="number" class="form-control" formControlName="salaryFrom" placeholder="Wpisz minimalne wynagrodzenie" />
+            <div class="text-danger" *ngIf="jobOfferForm.get('salaryFrom')?.invalid && jobOfferForm.get('salaryFrom')?.touched">
+              <small *ngIf="jobOfferForm.get('salaryFrom')?.errors?.['required']">Minimalne wynagrodzenie jest wymagane.</small>
+              <small *ngIf="jobOfferForm.get('salaryFrom')?.errors?.['min']">Minimalne wynagrodzenie musi być liczbą dodatnią.</small>
+            </div>
+          </div>
+      
+          <!-- Wynagrodzenie Do -->
+          <div class="mb-3">
+            <label for="salaryTo" class="form-label">Do</label>
+            <input id="salaryTo" type="number" class="form-control" formControlName="salaryTo" placeholder="Wpisz maksymalne wynagrodzenie" />
+            <div class="text-danger" *ngIf="jobOfferForm.get('salaryTo')?.invalid && jobOfferForm.get('salaryTo')?.touched">
+              <small *ngIf="jobOfferForm.get('salaryTo')?.errors?.['required']">Maksymalne wynagrodzenie jest wymagane.</small>
+              <small *ngIf="jobOfferForm.get('salaryTo')?.errors?.['min']">Maksymalne wynagrodzenie musi być liczbą dodatnią.</small>
+            </div>
+          </div>
+      
+          <!-- Przycisk Akcji -->
+          <div class="d-flex justify-content-end">
+            <button type="button" class="btn btn-secondary me-2" (click)="onCancel()">Anuluj</button>
+            <button type="submit" class="btn btn-primary" [disabled]="jobOfferForm.invalid">Utwórz</button>
+          </div>
+        </form>
+      </div>
+</div>
