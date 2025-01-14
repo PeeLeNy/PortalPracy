@@ -19,7 +19,7 @@ namespace API.Data
         }
         public async Task<IEnumerable<AppOffer>> GetOffersAsync()
         {
-            return await context.Offers.ToListAsync();
+            return await context.Offers.Where(o => !o.IsDeleted).ToListAsync();
         }
         public async Task<bool> SaveAllAsync()
         {

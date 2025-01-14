@@ -4,6 +4,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { CreateJobOfferDialogComponent } from '../create-job-offer-dialog/create-job-offer-dialog.component';
 import { OffersService } from '../../_services/offers.service';
 import { Offer } from '../../_models/offer';
+import { OpenOfferComponent } from '../open-offer/open-offer.component';
 
 @Component({
   selector: 'app-offer-list',
@@ -38,7 +39,7 @@ export class OfferListComponent implements OnInit {
     });
   }
   openOffer(offer: Offer) {
-    const dialogRef = this.dialog.open(CreateJobOfferDialogComponent, {
+    this.dialog.open(OpenOfferComponent, {
       width: '800px',
       data: {
         offer: offer

@@ -1,10 +1,10 @@
 <div class="my-3">
     <button (click)="addOffer()" class="btn btn-outline-primary me-3">Dodaj ofertę</button>
 </div>
-<div class="row">
-    <div class="col-2" style="width: 100%;">
-        @for (offer of offers; track offer.id) {
-            <app-offer-card [offer]="offer" click="openOffer(offer)"></app-offer-card>
-        }
+<div class="row">   
+    @for (offer of offers; track offer.id) {
+        <div class="col-2">
+        <app-offer-card [offer]="offer" (click)="openOffer(offer)"></app-offer-card>
     </div>
+    }
 </div>

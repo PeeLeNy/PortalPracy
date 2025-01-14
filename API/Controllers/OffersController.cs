@@ -13,8 +13,9 @@ namespace API.Controllers
         public async Task<ActionResult<IEnumerable<AppOffer>>> GetOffers()
         {
             var offers = await offerRepository.GetOffersAsync();
+            var sortedOffers = offers.OrderByDescending(o => o.Created);
 
-            return Ok(offers);
+            return Ok(sortedOffers);
         }
         [HttpGet("{id}")]
         public async Task<ActionResult<AppOffer>> GetOfferById(int id)
