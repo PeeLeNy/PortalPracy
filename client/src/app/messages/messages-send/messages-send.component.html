@@ -1,0 +1,25 @@
+<div class="navbar-dark bg-primary text-white">
+    <h5 class="modal-title ps-3">Oferta</h5>
+</div>
+<div class="p-3">
+    <div class="modal-body">
+          <div class="mb-3">
+            <label for="title" class="form-label">Tytuł</label>
+            <p class="border border rounded p-3">{{ data.offer.title }}</p>
+          </div>
+          <div class="mb-3">
+            <label for="title" class="form-label">E-mail użytkownika</label>
+            <p class="border border rounded p-3">{{ data.offer.userEmail }}</p>
+          </div>
+          <form (ngSubmit)="onSend()">
+            <div class="mb-3">
+                <label for="messageContent" class="form-label">Treść wiadomości</label>
+                <textarea id="messageContent" class="form-control" [(ngModel)]="messageContent" name="messageContent" rows="5" required></textarea>
+            </div>
+            <div class="d-flex">
+                <button type="submit" class="btn btn-primary">Wyślij</button>
+                <button type="button" class="btn btn-secondary ms-auto" (click)="onCancel()">Anuluj</button>
+            </div>
+        </form>
+      </div>
+</div>

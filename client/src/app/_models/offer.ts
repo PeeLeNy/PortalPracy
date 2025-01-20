@@ -4,6 +4,6 @@ export interface Offer {
     description: string;
     salaryFrom: number;
     salaryTo: number;
-    userId: number;
+    userEmail: string;
     created: Date;
   }

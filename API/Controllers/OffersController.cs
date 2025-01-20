@@ -1,4 +1,5 @@
-﻿using API.DTOs;
+﻿using System.Security.Claims;
+using API.DTOs;
 using API.Interfaces;
 using API.Models;
 using Microsoft.AspNetCore.Authorization;
@@ -12,6 +13,7 @@ namespace API.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<AppOffer>>> GetOffers()
         {
+            var user = User.FindFirst(ClaimTypes.NameIdentifier);
             var offers = await offerRepository.GetOffersAsync();
             var sortedOffers = offers.OrderByDescending(o => o.Created);
 

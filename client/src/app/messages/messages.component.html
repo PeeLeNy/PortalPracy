@@ -1,1 +1,60 @@
-<p>messages works!</p>
+<div class="container mt-3">
+    <div class="d-flex">
+        <div class="btn-group">
+            <button class="btn btn-primary" btnRadio="Unread" [(ngModel)]="container" (click)="loadMessages()">
+                Nieprzeczytane
+            </button>
+            <button class="btn btn-primary" btnRadio="Inbox" [(ngModel)]="container" (click)="loadMessages()">
+                Odebrane
+            </button>
+            <button class="btn btn-primary" btnRadio="Outbox" [(ngModel)]="container" (click)="loadMessages()">
+                Wysłane
+            </button>
+        </div>
+    </div>
+</div>
+@if (!messageService.paginatedResult()?.items) {
+<h3>Brak wiadomości!</h3>
+} @else {
+<table class="table table-hover mt-3" style="cursor: pointer;">
+    <thead>
+        <tr>
+            <th style="width: 20%;">Temat</th>
+            <th style="width: 20%;">Wiadomości</th>
+            <th style="width: 20%;">Od / Do</th>
+            <th style="width: 20%;">Wysłane / Odebrane</th>
+            <th style="width: 20%;"></th>
+        </tr>
+    </thead>
+    <tbody class="align-middle">
+        @for (message of messageService.paginatedResult()?.items; track message.id) {
+        <tr (click)="selectMessage(message)">
+            <td>{{message.messageThread}}</td>
+            <td>{{message.content}}</td>
+            <td>
+                <div>
+                    <strong>{{container === 'Outbox' ? message.recipientMail : message.senderMail}}</strong>
+                </div>
+            </td>
+            <td>{{ calculateTimeAgo(message.messageSent) }}</td>
+            <td><button class="btn btn-danger">Usuń</button></td>
+        </tr>
+        }
+    </tbody>
+</table>
+@if (messageService.paginatedResult()?.pagination!) {
+<div class="d-flex justify-content-center">
+    <pagination [boundaryLinks]="true" [totalItems]="messageService.paginatedResult()?.pagination!.totalItems"
+        [itemsPerPage]="messageService.paginatedResult()?.pagination!.itemsPerPage"
+        [(ngModel)]="messageService.paginatedResult()?.pagination!.currentPage" (pageChanged)="pageChanged($event)"
+        [maxSize]="10" previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;">
+    </pagination>
+</div>
+}
+@if (selectedMessage) {
+<div>
+    <app-messages-thread [userMail]="getMailForThread() || ''" [messagesThreadId]="selectedMessage.messageThreadId">
+    </app-messages-thread>
+</div>
+}
+}
