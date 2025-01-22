@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace API.Data
 {
-    public class OfferRepository(DataContext context, IMapper mapper) : IOfferRepository
+    public class OfferRepository(DataContext context) : IOfferRepository
     {
         public async Task<AppOffer?> GetOfferByIdAsync(int id)
         {

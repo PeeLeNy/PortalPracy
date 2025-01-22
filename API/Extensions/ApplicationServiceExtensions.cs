@@ -22,6 +22,7 @@ namespace API.Extensions
             services.AddScoped<IOfferRepository, OfferRepository>();
             services.AddScoped<IMessageRepository, MessageRepository>();
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+            services.AddSignalR();
 
             return services;
         }

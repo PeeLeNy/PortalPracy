@@ -16,8 +16,12 @@
                 <label for="messageContent" class="form-label">Treść wiadomości</label>
                 <textarea id="messageContent" class="form-control" [(ngModel)]="messageContent" name="messageContent" rows="5" required></textarea>
             </div>
+            <div class="mb-3">
+              <label for="messageContent" class="form-label">CV:  </label>
+              <input class="mb-2" type="file" (change)="onFileSelected($event)" />
+          </div>
             <div class="d-flex">
-                <button type="submit" class="btn btn-primary">Wyślij</button>
+                <button [disabled]="!messageContent || !selectedFile" type="submit" class="btn btn-primary">Wyślij</button>
                 <button type="button" class="btn btn-secondary ms-auto" (click)="onCancel()">Anuluj</button>
             </div>
         </form>

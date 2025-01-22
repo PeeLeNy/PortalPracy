@@ -20,10 +20,9 @@
     <thead>
         <tr>
             <th style="width: 20%;">Temat</th>
-            <th style="width: 20%;">Wiadomości</th>
+            <th style="width: 40%;">Wiadomości</th>
             <th style="width: 20%;">Od / Do</th>
             <th style="width: 20%;">Wysłane / Odebrane</th>
-            <th style="width: 20%;"></th>
         </tr>
     </thead>
     <tbody class="align-middle">
@@ -37,7 +36,6 @@
                 </div>
             </td>
             <td>{{ calculateTimeAgo(message.messageSent) }}</td>
-            <td><button class="btn btn-danger">Usuń</button></td>
         </tr>
         }
     </tbody>
@@ -53,7 +51,7 @@
 }
 @if (selectedMessage) {
 <div>
-    <app-messages-thread [userMail]="getMailForThread() || ''" [messagesThreadId]="selectedMessage.messageThreadId">
+    <app-messages-thread [userMail]="getMailForThread() || ''" [messagesThreadId]="selectedMessage.messageThreadId" [messagesThreadTitle]="selectedMessage.messageThread">
     </app-messages-thread>
 </div>
 }

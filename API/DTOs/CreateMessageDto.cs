@@ -4,6 +4,6 @@
     {
         public required int OfferId { get; set; }
         public required string RecipientEmail { get; set; }
-        public required string content { get; set; }
+        public required string Content { get; set; }
     }
 }

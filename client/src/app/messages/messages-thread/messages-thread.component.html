@@ -1,11 +1,12 @@
 <div class="card">
     <div class="border-bottom ms-2">
-        <h4>{{threadTitle}}</h4>
+        <h4>{{messagesThreadTitle()}}</h4>
         <h6 class="ms-3">{{userMail()}}</h6>
+        <button class="btn btn-primary ms-3 mb-3" (click)="fileDownload()">Pobierz załączone CV</button>
     </div>
-    <div #chatContainer class="card-body overflow-auto" style="max-height: 400px;">
+    <div #chatContainer class="card-body overflow-auto" style="max-height: 400px;"  (scroll)="onScroll()">
         <ul class="chat">
-            @for (message of messages; track message.id) {
+            @for (message of messageService.messageThread(); track message.id) {
                 <li [ngClass]="{'text-start': message.senderMail === userMail(), 'text-end': message.senderMail !== userMail()}">
                     <div>
                         <div class="chat-body">

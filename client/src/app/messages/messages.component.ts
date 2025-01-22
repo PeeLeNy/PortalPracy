@@ -92,7 +92,6 @@ export class MessagesComponent implements OnInit {
   }
 
   selectMessage(message: Message) {
-    console.log(message)
     this.selectedMessage = message;
   }
   getMailForThread() {

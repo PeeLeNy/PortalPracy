@@ -17,14 +17,26 @@ export class MessagesSendComponent {
   messageService = inject(MessageService);
 
   messageContent: string = '';
+  selectedFile: File | null = null;
 
   onSend(): void {
     this.messageService
-    .sendMessage(this.data.offer.userEmail, this.messageContent, this.data.offer.id)
-    .subscribe({
-      next: (message) =>  this.dialogRef.close(),
-      error: (err) => console.error('Błąd podczas wysyłania wiadomości:', err),
-    });
+      .sendMessage(this.data.offer.userEmail, this.messageContent, this.data.offer.id)
+      .then(() => {
+        if (this.selectedFile) {
+          this.messageService
+          .saveFileForThread(this.selectedFile, this.data.offer.userEmail, this.data.offer.id).subscribe(() => {
+            this.dialogRef.close();
+          })
+        }
+      })
+  }
+
+  onFileSelected(event: Event) {
+    const input = event.target as HTMLInputElement;
+    if (input.files && input.files.length > 0) {
+      this.selectedFile = input.files[0];
+    }
   }
 
   onCancel(): void {
